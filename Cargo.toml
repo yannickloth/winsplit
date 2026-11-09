@@ -1,0 +1,24 @@
+[package]
+name = "winsplit"
+version = "0.1.0"
+edition = "2021"
+description = "Nested Wayland compositor: pin two apps into a single resizable split container"
+license = "MIT"
+
+[[bin]]
+name = "winsplit"
+path = "src/main.rs"
+
+[dependencies]
+env_logger = "0.11"
+log = "0.4"
+smithay = { version = "0.7", default-features = false, features = [
+    # Nested backend: winit opens one window on the host compositor via wayland.
+    "backend_winit",
+    # Server side: wayland-server + standard/staging protocols.
+    "wayland_frontend",
+    # GPU path: OpenGL ES via glow (implies renderer_gl + backend_egl).
+    "renderer_glow",
+    # CPU fallback path.
+    "renderer_pixman",
+] }
