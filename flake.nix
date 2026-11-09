@@ -28,16 +28,28 @@
             rustfmt
             rust-analyzer
 
-            # Wayland runtime client libs (winit nested backend links against them)
+            # Wayland runtime client libs (winit nested backend dlopens them)
             wayland
 
             # Input / keymap (winit)
             libxkbcommon
 
-            # Rendering: GPU (glow -> EGL/GL ES, from mesa) + CPU fallback (pixman)
+            # Rendering: GPU (glow -> EGL/GL ES): libglvnd = loaders
+            # (libEGL.so.1), mesa = drivers/ICD; CPU fallback: pixman
+            libglvnd
             mesa
             pixman
           ];
+
+          # The winsplit binary is built by cargo (no nix RPATH patching), so
+          # expose the runtime libs to dlopen/ld explicitly.
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (with pkgs; [
+            wayland
+            libxkbcommon
+            libglvnd
+            mesa
+            pixman
+          ]);
         };
       });
     };
