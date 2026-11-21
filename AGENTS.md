@@ -174,12 +174,11 @@ WINSPLIT_LOCKED_MODS=numlock nix develop -c ./target/debug/winsplit kate konsole
 ## Agent plugins (opencode.jsonc)
 
 `opencode.jsonc` carries the standard audit-agent pins (ten general-skills
-audit agents pinned to `deepseek/deepseek-v4-pro` because their frontmatter
-model aliases are dropped at registration and would fall back to the session
-default local model) plus the `agentmem` plugin and its prompt injection.
-Same contract as `../modelmux/opencode.jsonc`: the `agent` block replaces
-plugin registration, so each pin carries the full agent (`prompt` via
-`{file:...}`, `mode`, permission block).
+audit agents pinned to their reviewed plugin rank, `proxy/warrant-officer`)
+plus the `agentmem` plugin and its prompt injection. Same contract as
+`../modelmux/opencode.json`: the `agent` block replaces plugin registration,
+so each pin carries the full agent (`prompt` via `{file:...}`, `mode`,
+permission block).
 
 ## Conventions
 
